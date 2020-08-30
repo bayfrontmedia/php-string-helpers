@@ -1,12 +1,10 @@
 <?php
+
 /**
- * Helper class to provide useful string functions
- *
- * @version     1.0.0
- * @link        https://github.com/bayfrontmedia/php-string-helpers
- * @license     MIT https://opensource.org/licenses/MIT
- * @copyright   2020 Bayfront Media https://www.bayfrontmedia.com
- * @author      John Robinson <john@bayfrontmedia.com>
+ * @package php-string-helpers
+ * @link https://github.com/bayfrontmedia/php-string-helpers
+ * @author John Robinson <john@bayfrontmedia.com>
+ * @copyright 2020 Bayfront Media
  */
 
 namespace Bayfront\StringHelpers;
@@ -15,7 +13,7 @@ class Str
 {
 
     /**
-     * Checks if string contains a case-sensitive needle
+     * Checks if string contains a case-sensitive needle.
      *
      * @param string $string
      * @param string $needle
@@ -29,7 +27,7 @@ class Str
     }
 
     /**
-     * Checks if a string starts with a given case-sensitive string
+     * Checks if a string starts with a given case-sensitive string.
      *
      * @param string $string
      * @param string $starts_with
@@ -43,7 +41,7 @@ class Str
     }
 
     /**
-     * Checks if a string ends with a given case-sensitive string
+     * Checks if a string ends with a given case-sensitive string.
      *
      * @param string $string
      * @param string $ends_with
@@ -61,7 +59,7 @@ class Str
     }
 
     /**
-     * Returns string, ensuring that it starts with a given string
+     * Returns string, ensuring that it starts with a given string.
      *
      * @param string $string
      * @param string $start_with
@@ -83,7 +81,7 @@ class Str
     }
 
     /**
-     * Returns string, ensuring that it ends with a given string
+     * Returns string, ensuring that it ends with a given string.
      *
      * @param string $string
      * @param string $end_with
@@ -105,7 +103,7 @@ class Str
     }
 
     /**
-     * Converts string to lowercase using a specified character encoding
+     * Converts string to lowercase using a specified character encoding.
      *
      * See: https://www.php.net/manual/en/mbstring.supported-encodings.php
      *
@@ -121,7 +119,7 @@ class Str
     }
 
     /**
-     * Converts string to uppercase using a specified character encoding
+     * Converts string to uppercase using a specified character encoding.
      *
      * See: https://www.php.net/manual/en/mbstring.supported-encodings.php
      *
@@ -137,7 +135,7 @@ class Str
     }
 
     /**
-     * Converts string to title case using a specified character encoding
+     * Converts string to title case using a specified character encoding.
      *
      * @param string $string
      * @param string $encoding
@@ -151,7 +149,7 @@ class Str
     }
 
     /**
-     * Converts string to camel case, removing any non-alpha and non-numeric characters
+     * Converts string to camel case, removing any non-alpha and non-numeric characters.
      *
      * @param string $string
      *
@@ -173,7 +171,7 @@ class Str
 
     /**
      * Converts string to kebab case (URL-friendly slug), replacing any non-alpha
-     * and non-numeric characters with a hyphen
+     * and non-numeric characters with a hyphen.
      *
      * @param string $string
      * @param bool $lowercase (Convert string to lowercase)
@@ -208,7 +206,7 @@ class Str
 
     /**
      * Converts string to snake case, replacing any non-alpha
-     * and non-numeric characters with an underscore
+     * and non-numeric characters with an underscore.
      *
      * @param string $string
      * @param bool $lowercase (Convert string to lowercase)
