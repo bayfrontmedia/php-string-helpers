@@ -3,7 +3,6 @@
   "description": "Helper class to provide useful string functions.",
   "homepage": "https://github.com/bayfrontmedia/php-string-helpers",
   "license" : "MIT",
-  "version": "1.0.0",
   "type": "library",
   "keywords": [
     "php",
