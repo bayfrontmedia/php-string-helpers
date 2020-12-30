@@ -39,6 +39,8 @@ composer require bayfrontmedia/php-string-helpers
 - [camelCase](#camelcase)
 - [kebabCase](#kebabcase)
 - [snakeCase](#snakecase)
+- [random](#random)
+- [uuid](#uuid)
 
 <hr />
 
@@ -352,4 +354,57 @@ use Bayfront\StringHelpers\Str;
 $string = 'This is a string.';
 
 echo Str::snakeCase($string);
+```
+
+<hr />
+
+### random
+
+**Description:**
+
+Return a random string of specified length and type.
+
+Type of `all` includes alphanumeric and special characters.
+
+**Note: Returned string is not cryptographically secure.**
+
+**Parameters:**
+
+- `$length = 8` (int)
+- `$type = 'all'` (string): Valid types include: `nonzero`, `numeric`, `alpha`, `alphanumeric`, and `all`
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```
+use Bayfront\StringHelpers\Str;
+
+echo Str::random(16, 'alphanumeric');
+```
+
+<hr />
+
+### uuid
+
+**Description:**
+
+Return a UUID v4 string.
+
+**Parameters:**
+
+- (None)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```
+use Bayfront\StringHelpers\Str;
+
+echo Str::uuid();
 ```

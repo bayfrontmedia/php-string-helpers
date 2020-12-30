@@ -239,4 +239,80 @@ class Str
 
     }
 
+    /**
+     * Return a random string of specified length and type.
+     *
+     * Type of "all" includes alphanumeric and special characters.
+     *
+     * Note: Returned string is not cryptographically secure.
+     *
+     * @param int $length
+     * @param string $type (Valid types include: nonzero, numeric, alpha, alphanumeric, and all)
+     *
+     * @return string
+     */
+
+    public static function random(int $length = 8, string $type = 'all'): string
+    {
+
+        $alpha = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $nonzero = '123456789';
+        $numeric = '0123456789';
+        $special = '-=/\[];,.~!@#$%^&*()_+{}|:?<>';
+
+        if ($type == 'nonzero') {
+
+            $chars = $nonzero;
+
+        } else if ($type == 'numeric') {
+
+            $chars = $numeric;
+
+        } else if ($type == 'alpha') {
+
+            $chars = $alpha;
+
+        } else if ($type == 'alphanumeric') {
+
+            $chars = $alpha . $numeric;
+
+        } else { // Default (all)
+
+            $chars = $alpha . $numeric . $special;
+
+        }
+
+        $pieces = [];
+
+        $max = mb_strlen($chars, '8bit') - 1;
+
+        for ($i = 0; $i < $length; ++$i) {
+
+            $pieces [] = $chars[random_int(0, $max)];
+
+        }
+
+        return implode('', $pieces);
+
+    }
+
+    /**
+     * Return a UUID v4 string.
+     *
+     * @return string
+     */
+
+    public static function uuid(): string
+    {
+
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
+            mt_rand(0, 0xffff),
+            mt_rand(0, 0x0fff) | 0x4000,
+            mt_rand(0, 0x3fff) | 0x8000,
+            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+        );
+
+    }
+
 }
