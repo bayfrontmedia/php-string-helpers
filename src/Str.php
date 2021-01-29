@@ -27,6 +27,19 @@ class Str
     }
 
     /**
+     * Checks if string contains any whitespace.
+     *
+     * @param string $string
+     *
+     * @return bool
+     */
+
+    public static function hasSpace(string $string): bool
+    {
+        return strpos($string, ' ') !== false;
+    }
+
+    /**
      * Checks if a string starts with a given case-sensitive string.
      *
      * @param string $string
@@ -247,7 +260,7 @@ class Str
      * Note: Returned string is not cryptographically secure.
      *
      * @param int $length
-     * @param string $type (Valid types include: nonzero, numeric, alpha, alphanumeric, and all)
+     * @param string $type (Valid types include: nonzero, alpha, numeric, alphanumeric, and all)
      *
      * @return string
      */
@@ -264,21 +277,21 @@ class Str
 
             $chars = $nonzero;
 
-        } else if ($type == 'numeric') {
-
-            $chars = $numeric;
-
         } else if ($type == 'alpha') {
 
             $chars = $alpha;
 
+        } else if ($type == 'numeric') {
+
+            $chars = $numeric;
+
         } else if ($type == 'alphanumeric') {
 
-            $chars = $alpha . $numeric;
+            $chars = $nonzero . $alpha . $numeric;
 
         } else { // Default (all)
 
-            $chars = $alpha . $numeric . $special;
+            $chars = $nonzero . $alpha . $numeric . $special;
 
         }
 

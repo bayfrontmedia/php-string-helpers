@@ -29,6 +29,7 @@ composer require bayfrontmedia/php-string-helpers
 ## Usage
 
 - [has](#has)
+- [hasSpace](#hasspace)
 - [startsWith](#startswith)
 - [endsWith](#endswith)
 - [startWith](#startwith)
@@ -67,6 +68,36 @@ use Bayfront\StringHelpers\Str;
 $string = 'This is a string.';
 
 if (Str::has($string, 'this')) {
+
+    // Do something
+
+}
+```
+
+<hr />
+
+### hasSpace
+
+**Description:**
+
+Checks if string contains any whitespace.
+
+**Parameters:**
+
+- `$string` (string)
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```
+use Bayfront\StringHelpers\Str;
+
+$string = 'This is a string.';
+
+if (Str::hasSpace($string)) {
 
     // Do something
 
@@ -371,7 +402,7 @@ Type of `all` includes alphanumeric and special characters.
 **Parameters:**
 
 - `$length = 8` (int)
-- `$type = 'all'` (string): Valid types include: `nonzero`, `numeric`, `alpha`, `alphanumeric`, and `all`
+- `$type = 'all'` (string): Valid types include: `nonzero`, `alpha`, `numeric`, `alphanumeric`, and `all`
 
 **Returns:**
 
