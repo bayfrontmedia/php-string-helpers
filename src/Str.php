@@ -1,12 +1,5 @@
 <?php
 
-/**
- * @package php-string-helpers
- * @link https://github.com/bayfrontmedia/php-string-helpers
- * @author John Robinson <john@bayfrontmedia.com>
- * @copyright 2020 Bayfront Media
- */
-
 namespace Bayfront\StringHelpers;
 
 class Str
@@ -23,7 +16,7 @@ class Str
 
     public static function has(string $string, string $needle): bool
     {
-        return strpos($string, $needle) !== false;
+        return str_contains($string, $needle);
     }
 
     /**
@@ -36,7 +29,7 @@ class Str
 
     public static function hasSpace(string $string): bool
     {
-        return strpos($string, ' ') !== false;
+        return str_contains($string, ' ');
     }
 
     /**
@@ -50,7 +43,7 @@ class Str
 
     public static function startsWith(string $string, string $starts_with = ''): bool
     {
-        return (substr($string, 0, strlen($starts_with)) === $starts_with);
+        return (str_starts_with($string, $starts_with));
     }
 
     /**
