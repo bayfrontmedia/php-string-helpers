@@ -305,18 +305,61 @@ class Str
     /**
      * Return a UUID v4 string.
      *
+     * NOTE: This method is depreciated.
+     * The uuid4 and uuid7 methods should be used instead.
+     *
      * @return string
+     * @deprecated
      */
 
     public static function uuid(): string
     {
+        return self::uuid4();
+    }
 
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x',
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff),
-            mt_rand(0, 0xffff),
-            mt_rand(0, 0x0fff) | 0x4000,
-            mt_rand(0, 0x3fff) | 0x8000,
-            mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff)
+    /**
+     * Return a UUID v4 string.
+     *
+     * @return string
+     */
+    public static function uuid4(): string
+    {
+
+        $data = random_bytes(16);
+
+        $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // Set version to 0100
+        $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // Set bits 6-7 to 10
+
+        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+
+    }
+
+    /**
+     * Return a lexicographically sortable UUID v7 string.
+     *
+     * @return string
+     */
+    public static function uuid7(): string
+    {
+
+        static $last_timestamp = 0;
+
+        $unixts_ms = intval(microtime(true) * 1000);
+        if ($last_timestamp >= $unixts_ms) {
+            $unixts_ms = $last_timestamp + 1;
+        }
+        $last_timestamp = $unixts_ms;
+        $data = random_bytes(10);
+        $data[0] = chr((ord($data[0]) & 0x0f) | 0x70); // Set version
+        $data[2] = chr((ord($data[2]) & 0x3f) | 0x80); // Set variant
+
+        return vsprintf(
+            '%s%s-%s-%s-%s-%s%s%s',
+            str_split(
+                str_pad(dechex($unixts_ms), 12, '0', \STR_PAD_LEFT) .
+                bin2hex($data),
+                4
+            )
         );
 
     }

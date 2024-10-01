@@ -45,6 +45,8 @@ composer require bayfrontmedia/php-string-helpers
 - [snakeCase](#snakecase)
 - [random](#random)
 - [uuid](#uuid)
+- [uuid4](#uuid4)
+- [uuid7](#uuid7)
 
 <hr />
 
@@ -427,6 +429,9 @@ echo Str::random(16, 'alphanumeric');
 
 Return a UUID v4 string.
 
+NOTE: This method is depreciated.
+The [uuid4](#uuid4) and [uuid7](#uuid7) methods should be used instead.
+
 **Parameters:**
 
 - (None)
@@ -441,4 +446,52 @@ Return a UUID v4 string.
 use Bayfront\StringHelpers\Str;
 
 echo Str::uuid();
+```
+
+<hr />
+
+### uuid4
+
+**Description:**
+
+Return a UUID v4 string.
+
+**Parameters:**
+
+- (None)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```
+use Bayfront\StringHelpers\Str;
+
+echo Str::uuid4();
+```
+
+<hr />
+
+### uuid7
+
+**Description:**
+
+Return a lexicographically sortable UUID v7 string.
+
+**Parameters:**
+
+- (None)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```
+use Bayfront\StringHelpers\Str;
+
+echo Str::uuid7();
 ```

@@ -12,6 +12,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities
 
+## [2.1.0] - 2024.10.01
+
+### Added
+
+- Added `uuid4` and `uuid7` methods.
+
+### Depreciated
+
+- Depreciated `uuid` method in favor of `uuid4` and `uuid7`.
+
 ## [2.0.0] - 2023.01.26
 
 ### Added
