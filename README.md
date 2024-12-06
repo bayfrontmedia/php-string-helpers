@@ -31,10 +31,6 @@ composer require bayfrontmedia/php-string-helpers
 
 ## Usage
 
-- [has](#has)
-- [hasSpace](#hasspace)
-- [startsWith](#startswith)
-- [endsWith](#endswith)
 - [startWith](#startwith)
 - [endWith](#endwith)
 - [lowercase](#lowercase)
@@ -44,132 +40,18 @@ composer require bayfrontmedia/php-string-helpers
 - [kebabCase](#kebabcase)
 - [snakeCase](#snakecase)
 - [random](#random)
-- [uuid](#uuid)
+- [uid](#uid)
 - [uuid4](#uuid4)
 - [uuid7](#uuid7)
+- [hasComplexity](#hascomplexity)
 
-<hr />
+Depreciated:
 
-### has
-
-**Description:**
-
-Checks if string contains a case-sensitive needle.
-
-**Parameters:**
-
-- `$string` (string)
-- `$needle` (string)
-
-**Returns:**
-
-- (bool)
-
-**Example:**
-
-```
-use Bayfront\StringHelpers\Str;
-
-$string = 'This is a string.';
-
-if (Str::has($string, 'this')) {
-
-    // Do something
-
-}
-```
-
-<hr />
-
-### hasSpace
-
-**Description:**
-
-Checks if string contains any whitespace.
-
-**Parameters:**
-
-- `$string` (string)
-
-**Returns:**
-
-- (bool)
-
-**Example:**
-
-```
-use Bayfront\StringHelpers\Str;
-
-$string = 'This is a string.';
-
-if (Str::hasSpace($string)) {
-
-    // Do something
-
-}
-```
-
-<hr />
-
-### startsWith
-
-**Description:**
-
-Checks if a string starts with a given case-sensitive string.
-
-**Parameters:**
-
-- `$string` (string)
-- `$starts_with` (string)
-
-**Returns:**
-
-- (bool)
-
-**Example:**
-
-```
-use Bayfront\StringHelpers\Str;
-
-$string = 'This is a string.';
-
-if (Str::startsWith($string, 'this')) {
-
-    // Do something
-
-}
-```
-
-<hr />
-
-### endsWith
-
-**Description:**
-
-Checks if a string ends with a given case-sensitive string.
-
-**Parameters:**
-
-- `$string` (string)
-- `$ends_with` (string)
-
-**Returns:**
-
-- (bool)
-
-**Example:**
-
-```
-use Bayfront\StringHelpers\Str;
-
-$string = 'This is a string.';
-
-if (Str::endsWith($string, 'string.')) {
-
-    // Do something
-
-}
-```
+- [has](#has)
+- [hasSpace](#hasspace)
+- [startsWith](#startswith)
+- [endsWith](#endswith)
+- [uuid](#uuid)
 
 <hr />
 
@@ -190,7 +72,7 @@ Returns string, ensuring that it starts with a given string.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -217,7 +99,7 @@ Returns string, ensuring that it ends with a given string.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -246,7 +128,7 @@ See: [https://www.php.net/manual/en/mbstring.supported-encodings.php](https://ww
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -275,7 +157,7 @@ See: [https://www.php.net/manual/en/mbstring.supported-encodings.php](https://ww
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -304,7 +186,7 @@ See: [https://www.php.net/manual/en/mbstring.supported-encodings.php](https://ww
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -330,7 +212,7 @@ Converts string to camel case, removing any non-alpha and non-numeric characters
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -357,7 +239,7 @@ Converts string to kebab case (URL-friendly slug), replacing any non-alpha and n
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -384,7 +266,7 @@ Converts string to snake case, replacing any non-alpha and non-numeric character
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 $string = 'This is a string.';
@@ -400,14 +282,26 @@ echo Str::snakeCase($string);
 
 Return a random string of specified length and type.
 
-Type of `all` includes alphanumeric and special characters.
-
 **Note: Returned string is not cryptographically secure.**
 
 **Parameters:**
 
 - `$length = 8` (int)
-- `$type = 'all'` (string): Valid types include: `nonzero`, `alpha`, `numeric`, `alphanumeric`, and `all`
+- `$type = self::RANDOM_TYPE_ALL` (string): Any `RANDOM_TYPE_*` constant)
+
+Valid `$type` constants include:
+
+- `RANDOM_TYPE_NONZERO`
+- `RANDOM_TYPE_NUMERIC`
+- `RANDOM_TYPE_ALPHA`: Alphabetic, upper and lowercase
+- `RANDOM_TYPE_ALPHA_LOWER`
+- `RANDOM_TYPE_ALPHA_UPPER`
+- `RANDOM_TYPE_ALPHANUMERIC`: Alphanumeric, upper and lowercase
+- `RANDOM_TYPE_ALPHANUMERIC_LOWER`
+- `RANDOM_TYPE_ALPHANUMERIC_UPPER`
+- `RANDOM_TYPE_ALL`: Alphanumeric and special characters
+
+Backticks and quotation marks are excluded from special characters for safely inserting into a database.
 
 **Returns:**
 
@@ -415,26 +309,23 @@ Type of `all` includes alphanumeric and special characters.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
-echo Str::random(16, 'alphanumeric');
+echo Str::random(16, Str::RANDOM_TYPE_ALPHANUMERIC);
 ```
 
 <hr />
 
-### uuid
+### uid
 
 **Description:**
 
-Return a UUID v4 string.
-
-NOTE: This method is depreciated.
-The [uuid4](#uuid4) and [uuid7](#uuid7) methods should be used instead.
+Return a cryptographically secure unique identifier (UID) comprised of lowercase letters and numbers.
 
 **Parameters:**
 
-- (None)
+- `$length = 8` (int)
 
 **Returns:**
 
@@ -442,13 +333,11 @@ The [uuid4](#uuid4) and [uuid7](#uuid7) methods should be used instead.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
-echo Str::uuid();
+echo Str::uid(16);
 ```
-
-<hr />
 
 ### uuid4
 
@@ -466,7 +355,7 @@ Return a UUID v4 string.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 echo Str::uuid4();
@@ -490,8 +379,197 @@ Return a lexicographically sortable UUID v7 string.
 
 **Example:**
 
-```
+```php
 use Bayfront\StringHelpers\Str;
 
 echo Str::uuid7();
+```
+
+<hr />
+
+### hasComplexity
+
+**Description:**
+
+Verify input string has a specified complexity.
+
+**Parameters:**
+
+- `$string` (string)
+- `$min_length` (int):
+- `$max_length` (int): `0` for no max
+- `$lowercase` (int): Minimum number of lowercase characters
+- `$uppercase` (int): Minimum number of uppercase characters
+- `$digits` (int): Minimum number of digits
+- `$special_chars` (int): Minimum number of non-alphabetic and non-numeric characters
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+if (!Str::hasComplexity('abc123', 8, 32, 1, 1, 1, 1)) {
+    // Do something
+}
+```
+
+<hr />
+
+### has
+
+**Description:**
+
+Checks if string contains a case-sensitive needle.
+
+This method has been depreciated in favor of PHP native function `str_contains`.
+
+**Parameters:**
+
+- `$string` (string)
+- `$needle` (string)
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$string = 'This is a string.';
+
+if (Str::has($string, 'this')) {
+
+    // Do something
+
+}
+```
+
+<hr />
+
+### hasSpace
+
+**Description:**
+
+Checks if string contains any whitespace.
+
+This method has been depreciated in favor of PHP native function `str_contains`.
+
+**Parameters:**
+
+- `$string` (string)
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$string = 'This is a string.';
+
+if (Str::hasSpace($string)) {
+
+    // Do something
+
+}
+```
+
+<hr />
+
+### startsWith
+
+**Description:**
+
+Checks if a string starts with a given case-sensitive string.
+
+This method has been depreciated in favor of PHP native function `str_starts_with`.
+
+**Parameters:**
+
+- `$string` (string)
+- `$starts_with` (string)
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$string = 'This is a string.';
+
+if (Str::startsWith($string, 'this')) {
+
+    // Do something
+
+}
+```
+
+<hr />
+
+### endsWith
+
+**Description:**
+
+Checks if a string ends with a given case-sensitive string.
+
+This method has been depreciated in favor of PHP native function `str_ends_with`.
+
+**Parameters:**
+
+- `$string` (string)
+- `$ends_with` (string)
+
+**Returns:**
+
+- (bool)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$string = 'This is a string.';
+
+if (Str::endsWith($string, 'string.')) {
+
+    // Do something
+
+}
+```
+
+<hr />
+
+### uuid
+
+**Description:**
+
+Return a UUID v4 string.
+
+This method has been depreciated in favor of [Str::uuid4](#uuid4) and [Str::uuid7](#uuid7).
+
+**Parameters:**
+
+- (None)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+echo Str::uuid();
 ```

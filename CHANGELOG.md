@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities
 
+## [2.2.0] - 2024.12.06
+
+### Added
+
+- Added `uid` and `hasComplexity` methods.
+
+### Changed
+
+- Expanded functionality of `random` function.
+- Depreciated methods which have been replaced with native PHP 8 functions.
+
 ## [2.1.0] - 2024.10.01
 
 ### Added
