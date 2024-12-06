@@ -396,7 +396,7 @@ Verify input string has a specified complexity.
 **Parameters:**
 
 - `$string` (string)
-- `$min_length` (int):
+- `$min_length` (int)
 - `$max_length` (int): `0` for no max
 - `$lowercase` (int): Minimum number of lowercase characters
 - `$uppercase` (int): Minimum number of uppercase characters
@@ -419,7 +419,7 @@ if (!Str::hasComplexity('abc123', 8, 32, 1, 1, 1, 1)) {
 
 <hr />
 
-### has
+### ~~has~~
 
 **Description:**
 
@@ -452,7 +452,7 @@ if (Str::has($string, 'this')) {
 
 <hr />
 
-### hasSpace
+### ~~hasSpace~~
 
 **Description:**
 
@@ -484,7 +484,7 @@ if (Str::hasSpace($string)) {
 
 <hr />
 
-### startsWith
+### ~~startsWith~~
 
 **Description:**
 
@@ -517,7 +517,7 @@ if (Str::startsWith($string, 'this')) {
 
 <hr />
 
-### endsWith
+### ~~endsWith~~
 
 **Description:**
 
@@ -550,7 +550,7 @@ if (Str::endsWith($string, 'string.')) {
 
 <hr />
 
-### uuid
+### ~~uuid~~
 
 **Description:**
 
