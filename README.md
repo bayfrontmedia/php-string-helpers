@@ -43,6 +43,9 @@ composer require bayfrontmedia/php-string-helpers
 - [uid](#uid)
 - [uuid4](#uuid4)
 - [uuid7](#uuid7)
+- [isValidUuid](#isvaliduuid)
+- [binToUuid](#bintouuid)
+- [uuidToBin](#uuidtobin)
 - [hasComplexity](#hascomplexity)
 
 Depreciated:
@@ -383,6 +386,80 @@ Return a lexicographically sortable UUID v7 string.
 use Bayfront\StringHelpers\Str;
 
 echo Str::uuid7();
+```
+
+<hr />
+
+### isValidUuid
+
+**Description:**
+
+Is string a valid UUID?
+
+**Parameters:**
+
+- `$uuid` (string)
+
+**Returns:**
+
+- (boolean)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+if (!Str::isValidUuid('9b77a49f-5d5a-4699-a8e0-21d010fdd9bc')) {
+    // Do something
+}
+```
+
+<hr />
+
+### binToUuid
+
+**Description:**
+
+Convert 16 byte binary string to UUID.
+
+**Parameters:**
+
+- `$binary` (string)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$uuid = Str::binToUuid($binary);
+```
+
+<hr />
+
+### uuidToBin
+
+**Description:**
+
+Convert UUID to 16 byte binary string.
+
+**Parameters:**
+
+- `$uuid` (string)
+
+**Returns:**
+
+- (string)
+
+**Example:**
+
+```php
+use Bayfront\StringHelpers\Str;
+
+$bin = Str::uuidToBin('9b77a49f-5d5a-4699-a8e0-21d010fdd9bc');
 ```
 
 <hr />

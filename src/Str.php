@@ -301,6 +301,52 @@ class Str
     }
 
     /**
+     * Is string a valid UUID?
+     *
+     * @param string $uuid
+     * @return bool
+     */
+    public static function isValidUuid(string $uuid): bool
+    {
+        return preg_match(
+        '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i',
+        $uuid) === 1;
+    }
+
+    /**
+     * Convert 16 byte binary string to UUID.
+     *
+     * @param string $binary
+     * @return string
+     */
+    public static function binToUuid(string $binary): string
+    {
+
+        $hex = bin2hex($binary);
+
+        return sprintf(
+            '%s-%s-%s-%s-%s',
+            substr($hex, 0, 8),
+            substr($hex, 8, 4),
+            substr($hex, 12, 4),
+            substr($hex, 16, 4),
+            substr($hex, 20, 12)
+        );
+
+    }
+
+    /**
+     * Convert UUID to 16 byte binary string.
+     *
+     * @param string $uuid
+     * @return string
+     */
+    public static function uuidToBin(string $uuid): string
+    {
+        return hex2bin(str_replace('-', '', $uuid));
+    }
+
+    /**
      * Verify input string has a specified complexity.
      *
      * @param string $string
