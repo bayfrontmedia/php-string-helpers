@@ -208,13 +208,18 @@ class Str
          * Numeric types can use random_int
          */
 
-        if ($type == self::RANDOM_TYPE_NONZERO || $type == self::RANDOM_TYPE_NUMERIC) {
-
-            if ($type === self::RANDOM_TYPE_NONZERO) {
-                return (string)random_int(1, str_repeat(9, $length));
+        if ($type === self::RANDOM_TYPE_NUMERIC) {
+            $result = '';
+            for ($i = 0; $i < $length; $i++) {
+                $result .= random_int(0, 9);
             }
-            return (string)random_int(0, str_repeat(9, $length));
-
+            return $result;
+        } else if ($type === self::RANDOM_TYPE_NONZERO) {
+            $result = '';
+            for ($i = 0; $i < $length; $i++) {
+                $result .= random_int(1, 9);
+            }
+            return $result;
         }
 
         $chars = match ($type) {
