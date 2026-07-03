@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities
 
+## [2.3.2] - 2026.07.03
+
+### Changed
+
+- Updated the `kebabCase` function to replace single quotes `'` with blank space instead of a hyphen `-`.
+
 ## [2.3.1]- 2026.01.14
 
 ### Fixed
