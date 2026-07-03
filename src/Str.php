@@ -109,6 +109,8 @@ class Str
     public static function kebabCase(string $string, bool $lowercase = false): string
     {
 
+        $string = str_replace("'", '', $string);
+
         // Replace non letter or digit with hyphen (-)
         $string = preg_replace('/[^a-z0-9]+/i', '-', $string);
 
