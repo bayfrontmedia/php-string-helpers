@@ -2,8 +2,6 @@
 
 namespace Bayfront\StringHelpers;
 
-use const STR_PAD_LEFT;
-
 class Str
 {
 
@@ -271,7 +269,13 @@ class Str
         $data[6] = chr(ord($data[6]) & 0x0f | 0x40); // Set version to 0100
         $data[8] = chr(ord($data[8]) & 0x3f | 0x80); // Set bits 6-7 to 10
 
-        return vsprintf('%s%s-%s-%s-%s-%s%s%s', str_split(bin2hex($data), 4));
+        $hex = bin2hex($data);
+
+        return substr($hex, 0, 8) . '-' .
+            substr($hex, 8, 4) . '-' .
+            substr($hex, 12, 4) . '-' .
+            substr($hex, 16, 4) . '-' .
+            substr($hex, 20, 12);
 
     }
 
@@ -284,26 +288,56 @@ class Str
     {
 
         static $last_timestamp = 0;
+        static $sequence = 0;
 
-        $unixts_ms = intval(microtime(true) * 1000);
+        $timestamp = (int)(microtime(true) * 1000);
 
-        if ($last_timestamp >= $unixts_ms) {
-            $unixts_ms = $last_timestamp + 1;
+        // Prevent backward clock movement from breaking sort order
+        if ($timestamp < $last_timestamp) {
+            $timestamp = $last_timestamp;
         }
 
-        $last_timestamp = $unixts_ms;
-        $data = random_bytes(10);
-        $data[0] = chr((ord($data[0]) & 0x0f) | 0x70); // Set version
-        $data[2] = chr((ord($data[2]) & 0x3f) | 0x80); // Set variant
+        if ($timestamp > $last_timestamp) {
 
-        return vsprintf(
-            '%s%s-%s-%s-%s-%s%s%s',
-            str_split(
-                str_pad(dechex($unixts_ms), 12, '0', STR_PAD_LEFT) .
-                bin2hex($data),
-                4
-            )
-        );
+            $last_timestamp = $timestamp;
+
+            // RFC 9562 recommends a randomized starting sequence
+            $sequence = random_int(0, 0x0fff);
+
+        } else {
+
+            $sequence++;
+
+            if ($sequence > 0x0fff) {
+
+                // Wait until the next millisecond
+
+                do {
+                    $timestamp = (int)(microtime(true) * 1000);
+                } while ($timestamp <= $last_timestamp);
+
+                $last_timestamp = $timestamp;
+                $sequence = random_int(0, 0x0fff);
+
+            }
+
+        }
+
+        $random = random_bytes(8);
+
+        // Set RFC 9562 variant bits (10xxxxxx)
+        $random[0] = chr((ord($random[0]) & 0x3f) | 0x80);
+
+        $hex =
+            sprintf('%012x', $last_timestamp) .
+            sprintf('%04x', 0x7000 | $sequence) .
+            bin2hex($random);
+
+        return substr($hex, 0, 8) . '-' .
+            substr($hex, 8, 4) . '-' .
+            substr($hex, 12, 4) . '-' .
+            substr($hex, 16, 4) . '-' .
+            substr($hex, 20, 12);
 
     }
 
@@ -316,8 +350,8 @@ class Str
     public static function isValidUuid(string $uuid): bool
     {
         return preg_match(
-        '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i',
-        $uuid) === 1;
+                '/^[0-9a-f]{8}-[0-9a-f]{4}-[1-57][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i',
+                $uuid) === 1;
     }
 
     /**
@@ -331,14 +365,11 @@ class Str
 
         $hex = bin2hex($binary);
 
-        return sprintf(
-            '%s-%s-%s-%s-%s',
-            substr($hex, 0, 8),
-            substr($hex, 8, 4),
-            substr($hex, 12, 4),
-            substr($hex, 16, 4),
-            substr($hex, 20, 12)
-        );
+        return substr($hex, 0, 8) . '-' .
+            substr($hex, 8, 4) . '-' .
+            substr($hex, 12, 4) . '-' .
+            substr($hex, 16, 4) . '-' .
+            substr($hex, 20, 12);
 
     }
 

@@ -12,6 +12,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities
 
+## [2.3.3] - 2026.07.18
+
+### Changed
+
+- Performance improvements in `uuid4` and `binToUuid` methods.
+
+### Fixed
+
+- Fixed bug where UUIDv7's were incrementing the timestamp by 1ms.
+- Fixed bug where `isValidUuid` was returning false for valid UUIDv7's.
+
 ## [2.3.2] - 2026.07.03
 
 ### Changed
